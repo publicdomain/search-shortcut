@@ -9,6 +9,7 @@ namespace SearchShortcut
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Windows.Forms;
 
     /// <summary>
@@ -32,7 +33,29 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchTermAddButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code 
+            // Prevent painting
+            this.searchTermCheckedListBox.BeginUpdate();
+
+            // Split by comma adnd trim
+            foreach (var term in this.searchTermTextBox.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray())
+            {
+                // Check for a previous one
+                if (!this.searchTermCheckedListBox.Items.Contains(term))
+                {
+                    // Add to checked list
+                    this.searchTermCheckedListBox.Items.Add(term);
+                }
+
+                // Should it be checked on add?
+                if (this.checkOnAddToolStripMenuItem.Checked)
+                {
+                    // Check item (current or previous)
+                    this.searchTermCheckedListBox.SetItemChecked(this.searchTermCheckedListBox.Items.IndexOf(term), true);
+                }
+            }
+
+            // Resume painting
+            this.searchTermCheckedListBox.EndUpdate();
         }
 
         /// <summary>

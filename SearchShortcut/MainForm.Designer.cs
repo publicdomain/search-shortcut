@@ -49,6 +49,8 @@ namespace SearchShortcut
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.askOnClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.checkOnAddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.checkOnClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.freeReleasesPublicDomainisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.originalThreadDonationCodercomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -215,7 +217,9 @@ namespace SearchShortcut
 			// 
 			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 									this.alwaysOnTopToolStripMenuItem,
-									this.askOnClearToolStripMenuItem});
+									this.askOnClearToolStripMenuItem,
+									this.checkOnAddToolStripMenuItem,
+									this.checkOnClickToolStripMenuItem});
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
 			this.optionsToolStripMenuItem.Text = "&Options";
@@ -224,7 +228,7 @@ namespace SearchShortcut
 			// alwaysOnTopToolStripMenuItem
 			// 
 			this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-			this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
 			this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
 			// 
 			// askOnClearToolStripMenuItem
@@ -232,8 +236,24 @@ namespace SearchShortcut
 			this.askOnClearToolStripMenuItem.Checked = true;
 			this.askOnClearToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.askOnClearToolStripMenuItem.Name = "askOnClearToolStripMenuItem";
-			this.askOnClearToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+			this.askOnClearToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
 			this.askOnClearToolStripMenuItem.Text = "&Ask on clear";
+			// 
+			// checkOnAddToolStripMenuItem
+			// 
+			this.checkOnAddToolStripMenuItem.Checked = true;
+			this.checkOnAddToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkOnAddToolStripMenuItem.Name = "checkOnAddToolStripMenuItem";
+			this.checkOnAddToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+			this.checkOnAddToolStripMenuItem.Text = "&Check on add";
+			// 
+			// checkOnClickToolStripMenuItem
+			// 
+			this.checkOnClickToolStripMenuItem.Checked = true;
+			this.checkOnClickToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkOnClickToolStripMenuItem.Name = "checkOnClickToolStripMenuItem";
+			this.checkOnClickToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+			this.checkOnClickToolStripMenuItem.Text = "&Check on click";
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -432,6 +452,7 @@ namespace SearchShortcut
 			// 
 			// searchTermCheckedListBox
 			// 
+			this.searchTermCheckedListBox.CheckOnClick = true;
 			this.mainTableLayoutPanel.SetColumnSpan(this.searchTermCheckedListBox, 2);
 			this.searchTermCheckedListBox.ContextMenuStrip = this.checkedListBoxContextMenuStrip;
 			this.searchTermCheckedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -441,6 +462,7 @@ namespace SearchShortcut
 			this.searchTermCheckedListBox.Location = new System.Drawing.Point(3, 58);
 			this.searchTermCheckedListBox.Name = "searchTermCheckedListBox";
 			this.searchTermCheckedListBox.Size = new System.Drawing.Size(389, 116);
+			this.searchTermCheckedListBox.Sorted = true;
 			this.searchTermCheckedListBox.TabIndex = 3;
 			this.searchTermCheckedListBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.OnSearchTermCheckedListBoxPreviewKeyDown);
 			// 
@@ -473,6 +495,7 @@ namespace SearchShortcut
 			// 
 			// searchEnginesCheckedListBox
 			// 
+			this.searchEnginesCheckedListBox.CheckOnClick = true;
 			this.mainTableLayoutPanel.SetColumnSpan(this.searchEnginesCheckedListBox, 2);
 			this.searchEnginesCheckedListBox.ContextMenuStrip = this.checkedListBoxContextMenuStrip;
 			this.searchEnginesCheckedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -482,6 +505,7 @@ namespace SearchShortcut
 			this.searchEnginesCheckedListBox.Location = new System.Drawing.Point(3, 235);
 			this.searchEnginesCheckedListBox.Name = "searchEnginesCheckedListBox";
 			this.searchEnginesCheckedListBox.Size = new System.Drawing.Size(389, 116);
+			this.searchEnginesCheckedListBox.Sorted = true;
 			this.searchEnginesCheckedListBox.TabIndex = 7;
 			this.searchEnginesCheckedListBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.OnSearchEnginesCheckedListBoxPreviewKeyDown);
 			// 
@@ -534,6 +558,8 @@ namespace SearchShortcut
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem checkOnAddToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem checkOnClickToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem askOnClearToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
