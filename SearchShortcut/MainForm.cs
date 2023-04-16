@@ -65,7 +65,39 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchEnginesAddButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Prevent painting
+            this.searchEnginesCheckedListBox.BeginUpdate();
+
+            // Split by comma adnd trim
+            foreach (var engine in this.searchEnginesTextBox.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray())
+            {
+                // First check it's well formed
+                if (!Uri.IsWellFormedUriString(engine, UriKind.Absolute))
+                {
+                    // Skip engine
+                    continue;
+                }
+
+                // Check for a previous one
+                if (!this.searchEnginesCheckedListBox.Items.Contains(engine))
+                {
+                    // Add to checked list
+                    this.searchEnginesCheckedListBox.Items.Add(engine);
+                }
+
+                // Should it be checked on add
+                if (this.checkOnAddToolStripMenuItem.Checked)
+                {
+                    // Check item (current or previous)
+                    this.searchEnginesCheckedListBox.SetItemChecked(this.searchEnginesCheckedListBox.Items.IndexOf(engine), true);
+                }
+            }
+
+            // Resume painting
+            this.searchEnginesCheckedListBox.EndUpdate();
+
+            // Update total count
+            this.totalToolStripStatusLabel.Text = this.searchEnginesCheckedListBox.Items.Count.ToString();
         }
 
         /// <summary>
@@ -126,16 +158,6 @@ namespace SearchShortcut
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
         {
             // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the exit tool strip menu item click.
-        /// </summary>
-        /// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code 
         }
 
         /// <summary>
@@ -234,6 +256,16 @@ namespace SearchShortcut
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
+        {
+            // TODO Add code 
+        }
+
+        /// <summary>
+        /// Handles the exit tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             // TODO Add code 
         }
