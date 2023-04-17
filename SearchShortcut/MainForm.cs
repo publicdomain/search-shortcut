@@ -275,7 +275,8 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchEnginesCheckedListBoxItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // TODO Add code
+            // Update checked terms
+            this.enginesToolStripStatusLabel.Text = $"{this.searchEnginesCheckedListBox.CheckedItems.Count + (e.NewValue == CheckState.Checked ? 1 : -1)}";
         }
 
         /// <summary>
