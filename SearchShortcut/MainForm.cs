@@ -104,7 +104,7 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnPerformSearchButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code 
+            // TODO Add code
         }
 
         /// <summary>
@@ -224,7 +224,12 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchTermTextBoxKeyDown(object sender, KeyEventArgs e)
         {
-            // TODO Add code
+            // Check for enter
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Press the add button
+                this.searchTermAddButton.PerformClick();
+            }
         }
 
         /// <summary>
