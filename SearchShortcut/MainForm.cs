@@ -239,7 +239,12 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchEnginesTextBoxKeyDown(object sender, KeyEventArgs e)
         {
-            // TODO Add code
+            // Check for enter
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Press the add button
+                this.searchEnginesAddButton.PerformClick();
+            }
         }
 
         /// <summary>
