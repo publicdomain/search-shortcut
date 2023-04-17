@@ -58,10 +58,10 @@ namespace SearchShortcut
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
-			this.selectedTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.selectedToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.totalTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.totalToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.termsTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.termsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.enginesTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.enginesToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.keywordTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.keywordToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.textFileOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -71,7 +71,7 @@ namespace SearchShortcut
 			this.searchTermAddButton = new System.Windows.Forms.Button();
 			this.searchEnginesAddButton = new System.Windows.Forms.Button();
 			this.searchEnginesLabel = new System.Windows.Forms.Label();
-			this.searchTermCheckedListBox = new System.Windows.Forms.CheckedListBox();
+			this.searchTermsCheckedListBox = new System.Windows.Forms.CheckedListBox();
 			this.checkedListBoxContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -305,10 +305,10 @@ namespace SearchShortcut
 			// mainStatusStrip
 			// 
 			this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.selectedTextToolStripStatusLabel,
-									this.selectedToolStripStatusLabel,
-									this.totalTextToolStripStatusLabel,
-									this.totalToolStripStatusLabel,
+									this.termsTextToolStripStatusLabel,
+									this.termsToolStripStatusLabel,
+									this.enginesTextToolStripStatusLabel,
+									this.enginesToolStripStatusLabel,
 									this.keywordTextToolStripStatusLabel,
 									this.keywordToolStripStatusLabel});
 			this.mainStatusStrip.Location = new System.Drawing.Point(0, 428);
@@ -317,31 +317,31 @@ namespace SearchShortcut
 			this.mainStatusStrip.SizingGrip = false;
 			this.mainStatusStrip.TabIndex = 32;
 			// 
-			// selectedTextToolStripStatusLabel
+			// termsTextToolStripStatusLabel
 			// 
-			this.selectedTextToolStripStatusLabel.Name = "selectedTextToolStripStatusLabel";
-			this.selectedTextToolStripStatusLabel.Size = new System.Drawing.Size(54, 17);
-			this.selectedTextToolStripStatusLabel.Text = "Selected:";
+			this.termsTextToolStripStatusLabel.Name = "termsTextToolStripStatusLabel";
+			this.termsTextToolStripStatusLabel.Size = new System.Drawing.Size(43, 17);
+			this.termsTextToolStripStatusLabel.Text = "Terms:";
 			// 
-			// selectedToolStripStatusLabel
+			// termsToolStripStatusLabel
 			// 
-			this.selectedToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.selectedToolStripStatusLabel.Name = "selectedToolStripStatusLabel";
-			this.selectedToolStripStatusLabel.Size = new System.Drawing.Size(14, 17);
-			this.selectedToolStripStatusLabel.Text = "0";
+			this.termsToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.termsToolStripStatusLabel.Name = "termsToolStripStatusLabel";
+			this.termsToolStripStatusLabel.Size = new System.Drawing.Size(14, 17);
+			this.termsToolStripStatusLabel.Text = "0";
 			// 
-			// totalTextToolStripStatusLabel
+			// enginesTextToolStripStatusLabel
 			// 
-			this.totalTextToolStripStatusLabel.Name = "totalTextToolStripStatusLabel";
-			this.totalTextToolStripStatusLabel.Size = new System.Drawing.Size(37, 17);
-			this.totalTextToolStripStatusLabel.Text = "Total:";
+			this.enginesTextToolStripStatusLabel.Name = "enginesTextToolStripStatusLabel";
+			this.enginesTextToolStripStatusLabel.Size = new System.Drawing.Size(51, 17);
+			this.enginesTextToolStripStatusLabel.Text = "Engines:";
 			// 
-			// totalToolStripStatusLabel
+			// enginesToolStripStatusLabel
 			// 
-			this.totalToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.totalToolStripStatusLabel.Name = "totalToolStripStatusLabel";
-			this.totalToolStripStatusLabel.Size = new System.Drawing.Size(14, 17);
-			this.totalToolStripStatusLabel.Text = "0";
+			this.enginesToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.enginesToolStripStatusLabel.Name = "enginesToolStripStatusLabel";
+			this.enginesToolStripStatusLabel.Size = new System.Drawing.Size(14, 17);
+			this.enginesToolStripStatusLabel.Text = "0";
 			// 
 			// keywordTextToolStripStatusLabel
 			// 
@@ -371,7 +371,7 @@ namespace SearchShortcut
 			this.mainTableLayoutPanel.Controls.Add(this.searchTermAddButton, 1, 1);
 			this.mainTableLayoutPanel.Controls.Add(this.searchEnginesAddButton, 1, 4);
 			this.mainTableLayoutPanel.Controls.Add(this.searchEnginesLabel, 0, 3);
-			this.mainTableLayoutPanel.Controls.Add(this.searchTermCheckedListBox, 0, 2);
+			this.mainTableLayoutPanel.Controls.Add(this.searchTermsCheckedListBox, 0, 2);
 			this.mainTableLayoutPanel.Controls.Add(this.searchEnginesCheckedListBox, 0, 5);
 			this.mainTableLayoutPanel.Controls.Add(this.searchTermTextBox, 0, 1);
 			this.mainTableLayoutPanel.Controls.Add(this.searchEnginesTextBox, 0, 4);
@@ -450,21 +450,22 @@ namespace SearchShortcut
 			this.searchEnginesLabel.Text = "&Search engines:";
 			this.searchEnginesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// searchTermCheckedListBox
+			// searchTermsCheckedListBox
 			// 
-			this.searchTermCheckedListBox.CheckOnClick = true;
-			this.mainTableLayoutPanel.SetColumnSpan(this.searchTermCheckedListBox, 2);
-			this.searchTermCheckedListBox.ContextMenuStrip = this.checkedListBoxContextMenuStrip;
-			this.searchTermCheckedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.searchTermCheckedListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.searchTermCheckedListBox.FormattingEnabled = true;
-			this.searchTermCheckedListBox.IntegralHeight = false;
-			this.searchTermCheckedListBox.Location = new System.Drawing.Point(3, 58);
-			this.searchTermCheckedListBox.Name = "searchTermCheckedListBox";
-			this.searchTermCheckedListBox.Size = new System.Drawing.Size(389, 116);
-			this.searchTermCheckedListBox.Sorted = true;
-			this.searchTermCheckedListBox.TabIndex = 3;
-			this.searchTermCheckedListBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.OnSearchTermCheckedListBoxPreviewKeyDown);
+			this.searchTermsCheckedListBox.CheckOnClick = true;
+			this.mainTableLayoutPanel.SetColumnSpan(this.searchTermsCheckedListBox, 2);
+			this.searchTermsCheckedListBox.ContextMenuStrip = this.checkedListBoxContextMenuStrip;
+			this.searchTermsCheckedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.searchTermsCheckedListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.searchTermsCheckedListBox.FormattingEnabled = true;
+			this.searchTermsCheckedListBox.IntegralHeight = false;
+			this.searchTermsCheckedListBox.Location = new System.Drawing.Point(3, 58);
+			this.searchTermsCheckedListBox.Name = "searchTermsCheckedListBox";
+			this.searchTermsCheckedListBox.Size = new System.Drawing.Size(389, 116);
+			this.searchTermsCheckedListBox.Sorted = true;
+			this.searchTermsCheckedListBox.TabIndex = 3;
+			this.searchTermsCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.OnSearchTermCheckedListBoxItemCheck);
+			this.searchTermsCheckedListBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.OnSearchTermCheckedListBoxPreviewKeyDown);
 			// 
 			// checkedListBoxContextMenuStrip
 			// 
@@ -507,6 +508,7 @@ namespace SearchShortcut
 			this.searchEnginesCheckedListBox.Size = new System.Drawing.Size(389, 116);
 			this.searchEnginesCheckedListBox.Sorted = true;
 			this.searchEnginesCheckedListBox.TabIndex = 7;
+			this.searchEnginesCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.OnSearchEnginesCheckedListBoxItemCheck);
 			this.searchEnginesCheckedListBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.OnSearchEnginesCheckedListBoxPreviewKeyDown);
 			// 
 			// searchTermTextBox
@@ -571,7 +573,7 @@ namespace SearchShortcut
 		private System.Windows.Forms.TextBox searchEnginesTextBox;
 		private System.Windows.Forms.TextBox searchTermTextBox;
 		private System.Windows.Forms.CheckedListBox searchEnginesCheckedListBox;
-		private System.Windows.Forms.CheckedListBox searchTermCheckedListBox;
+		private System.Windows.Forms.CheckedListBox searchTermsCheckedListBox;
 		private System.Windows.Forms.Label searchEnginesLabel;
 		private System.Windows.Forms.Button searchEnginesAddButton;
 		private System.Windows.Forms.Button searchTermAddButton;
@@ -582,10 +584,10 @@ namespace SearchShortcut
 		private System.Windows.Forms.OpenFileDialog textFileOpenFileDialog;
 		private System.Windows.Forms.ToolStripStatusLabel keywordToolStripStatusLabel;
 		private System.Windows.Forms.ToolStripStatusLabel keywordTextToolStripStatusLabel;
-		private System.Windows.Forms.ToolStripStatusLabel totalToolStripStatusLabel;
-		private System.Windows.Forms.ToolStripStatusLabel totalTextToolStripStatusLabel;
-		private System.Windows.Forms.ToolStripStatusLabel selectedToolStripStatusLabel;
-		private System.Windows.Forms.ToolStripStatusLabel selectedTextToolStripStatusLabel;
+		private System.Windows.Forms.ToolStripStatusLabel enginesToolStripStatusLabel;
+		private System.Windows.Forms.ToolStripStatusLabel enginesTextToolStripStatusLabel;
+		private System.Windows.Forms.ToolStripStatusLabel termsToolStripStatusLabel;
+		private System.Windows.Forms.ToolStripStatusLabel termsTextToolStripStatusLabel;
 		private System.Windows.Forms.StatusStrip mainStatusStrip;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

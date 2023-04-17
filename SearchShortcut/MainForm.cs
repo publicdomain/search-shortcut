@@ -34,28 +34,28 @@ namespace SearchShortcut
         private void OnSearchTermAddButtonClick(object sender, EventArgs e)
         {
             // Prevent painting
-            this.searchTermCheckedListBox.BeginUpdate();
+            this.searchTermsCheckedListBox.BeginUpdate();
 
             // Split by comma adnd trim
             foreach (var term in this.searchTermTextBox.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray())
             {
                 // Check for a previous one
-                if (!this.searchTermCheckedListBox.Items.Contains(term))
+                if (!this.searchTermsCheckedListBox.Items.Contains(term))
                 {
                     // Add to checked list
-                    this.searchTermCheckedListBox.Items.Add(term);
+                    this.searchTermsCheckedListBox.Items.Add(term);
                 }
 
                 // Should it be checked on add?
                 if (this.checkOnAddToolStripMenuItem.Checked)
                 {
                     // Check item (current or previous)
-                    this.searchTermCheckedListBox.SetItemChecked(this.searchTermCheckedListBox.Items.IndexOf(term), true);
+                    this.searchTermsCheckedListBox.SetItemChecked(this.searchTermsCheckedListBox.Items.IndexOf(term), true);
                 }
             }
 
             // Resume painting
-            this.searchTermCheckedListBox.EndUpdate();
+            this.searchTermsCheckedListBox.EndUpdate();
         }
 
         /// <summary>
@@ -95,9 +95,6 @@ namespace SearchShortcut
 
             // Resume painting
             this.searchEnginesCheckedListBox.EndUpdate();
-
-            // Update total count
-            this.totalToolStripStatusLabel.Text = this.searchEnginesCheckedListBox.Items.Count.ToString();
         }
 
         /// <summary>
@@ -258,6 +255,27 @@ namespace SearchShortcut
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             // TODO Add code 
+        }
+
+        /// <summary>
+        /// Handles the search term checked list box item check.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnSearchTermCheckedListBoxItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            // Update checked terms
+            this.termsToolStripStatusLabel.Text = $"{this.searchTermsCheckedListBox.CheckedItems.Count + (e.NewValue == CheckState.Checked ? 1 : -1)}";
+        }
+
+        /// <summary>
+        /// Handles the search engines checked list box item check.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnSearchEnginesCheckedListBoxItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            // TODO Add code
         }
 
         /// <summary>
