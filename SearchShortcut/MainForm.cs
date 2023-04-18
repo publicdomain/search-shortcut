@@ -129,7 +129,12 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchEnginesCheckedListBoxPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            // TODO Add code
+            // Check for delete
+            if (e.KeyCode == Keys.Delete)
+            {
+                // Remove selected engines
+                this.RemoveSelectedItems(this.searchEnginesCheckedListBox);
+            }
         }
 
         /// <summary>
