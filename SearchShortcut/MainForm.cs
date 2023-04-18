@@ -56,6 +56,12 @@ namespace SearchShortcut
 
             // Resume painting
             this.searchTermsCheckedListBox.EndUpdate();
+
+            // Clear text box
+            this.searchTermTextBox.Clear();
+
+            // Focus text box
+            this.searchTermTextBox.Focus();
         }
 
         /// <summary>
