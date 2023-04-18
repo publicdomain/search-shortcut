@@ -118,13 +118,27 @@ namespace SearchShortcut
         }
 
         /// <summary>
+        /// Removes the selected.
+        /// </summary>
+        /// <param name="checkedListBox">Checked list box.</param>
+        private void RemoveSelected(CheckedListBox checkedListBox)
+        {
+            // Iterate
+            while (checkedListBox.SelectedItems.Count > 0)
+            {
+                // Remove selected
+                checkedListBox.Items.Remove(checkedListBox.SelectedItems[0]);
+            }
+        }
+
+        /// <summary>
         /// Handles the search engines checked list box preview key down.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
         private void OnSearchEnginesCheckedListBoxPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            // TODO Add code 
+            // TODO Add code
         }
 
         /// <summary>
@@ -144,7 +158,7 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code 
+            // TODO Add code
         }
 
         /// <summary>
@@ -174,7 +188,7 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnOptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // TODO Add code 
+            // TODO Add code
         }
 
         /// <summary>
@@ -287,6 +301,17 @@ namespace SearchShortcut
         {
             // Update checked terms
             this.enginesToolStripStatusLabel.Text = $"{this.searchEnginesCheckedListBox.CheckedItems.Count + (e.NewValue == CheckState.Checked ? 1 : -1)}";
+        }
+
+
+        /// <summary>
+        /// Handles the checked list box context menu strip item clicked.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnCheckedListBoxContextMenuStripItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // TODO Add code
         }
 
         /// <summary>
