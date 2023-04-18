@@ -114,20 +114,11 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchTermCheckedListBoxPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Removes the selected.
-        /// </summary>
-        /// <param name="checkedListBox">Checked list box.</param>
-        private void RemoveSelected(CheckedListBox checkedListBox)
-        {
-            // Iterate
-            while (checkedListBox.SelectedItems.Count > 0)
+            // Check for delete
+            if (e.KeyCode == Keys.Delete)
             {
-                // Remove selected
-                checkedListBox.Items.Remove(checkedListBox.SelectedItems[0]);
+                // Remove selected terms
+                this.RemoveSelectedItems(this.searchTermsCheckedListBox);
             }
         }
 
@@ -139,6 +130,20 @@ namespace SearchShortcut
         private void OnSearchEnginesCheckedListBoxPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             // TODO Add code
+        }
+
+        /// <summary>
+        /// Removes the selected items.
+        /// </summary>
+        /// <param name="checkedListBox">Checked list box.</param>
+        private void RemoveSelectedItems(CheckedListBox checkedListBox)
+        {
+            // Iterate
+            while (checkedListBox.SelectedItems.Count > 0)
+            {
+                // Remove selected
+                checkedListBox.Items.Remove(checkedListBox.SelectedItems[0]);
+            }
         }
 
         /// <summary>
