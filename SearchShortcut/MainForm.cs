@@ -11,6 +11,7 @@ namespace SearchShortcut
     using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
+    using Microsoft.VisualBasic;
 
     /// <summary>
     /// Description of MainForm.
@@ -101,6 +102,12 @@ namespace SearchShortcut
 
             // Resume painting
             this.searchEnginesCheckedListBox.EndUpdate();
+
+            // Clear text box
+            this.searchEnginesTextBox.Clear();
+
+            // Focus text box
+            this.searchEnginesTextBox.Focus();
         }
 
         /// <summary>
@@ -327,7 +334,53 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnCheckedListBoxContextMenuStripItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // TODO Add code
+            // Determine checked list box
+            CheckedListBox checkedListBox = ((CheckedListBox)((ContextMenuStrip)sender).SourceControl);
+
+            switch (e.ClickedItem.Name)
+            {
+                // Delete
+                case "deleteToolStripMenuItem":
+
+                    // Remove selected
+                    this.RemoveSelectedItems(checkedListBox);
+
+                    break;
+
+                // Edit
+                case "editToolStripMenuItem":
+
+                    // Check there's something to work with
+                    if (checkedListBox.SelectedItems.Count > 0)
+                    {
+                        // Collect item text from user
+                        string itemText = Interaction.InputBox("Set new item", "Edit", checkedListBox.SelectedItem.ToString());
+
+                        // Check it's not empty and different 
+                        if (itemText.Length > 0 && itemText != checkedListBox.SelectedItem.ToString())
+                        {
+                            // Edit item
+                            checkedListBox.Items[checkedListBox.SelectedIndices[0]] = itemText;
+                        }
+                    }
+
+                    break;
+
+                // Clear
+                case "clearToolStripMenuItem":
+
+                    // Check if must ask
+                    if (this.askOnClearToolStripMenuItem.Checked && MessageBox.Show($"Clear {(checkedListBox.Name.Contains("Terms") ? "terms" : "engines")} list?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    {
+                        // Halt flow
+                        break;
+                    }
+
+                    // Clear list box items
+                    checkedListBox.Items.Clear();
+
+                    break;
+            }
         }
 
         /// <summary>
