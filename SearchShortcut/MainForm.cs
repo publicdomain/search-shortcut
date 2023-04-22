@@ -171,7 +171,11 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Clear search terms list
+            this.searchTermsCheckedListBox.Items.Clear();
+
+            // Focus search terms text box
+            this.searchTermTextBox.Focus();
         }
 
         /// <summary>
