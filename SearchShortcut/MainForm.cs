@@ -365,9 +365,6 @@ namespace SearchShortcut
                                 // Test for a well-formed URI-
                                 if (!Uri.IsWellFormedUriString(itemText, UriKind.Absolute))
                                 {
-                                    //#
-                                    MessageBox.Show("Halt flow");
-
                                     // Halt flow
                                     break;
                                 }
