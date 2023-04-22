@@ -359,6 +359,20 @@ namespace SearchShortcut
                         // Check it's not empty and different 
                         if (itemText.Length > 0 && itemText != checkedListBox.SelectedItem.ToString())
                         {
+                            // TODO Check if it's meant to be an URI [Can be improved]
+                            if (checkedListBox.Name == "searchEnginesCheckedListBox")
+                            {
+                                // Test for a well-formed URI-
+                                if (!Uri.IsWellFormedUriString(itemText, UriKind.Absolute))
+                                {
+                                    //#
+                                    MessageBox.Show("Halt flow");
+
+                                    // Halt flow
+                                    break;
+                                }
+                            }
+
                             // Edit item
                             checkedListBox.Items[checkedListBox.SelectedIndices[0]] = itemText;
                         }
