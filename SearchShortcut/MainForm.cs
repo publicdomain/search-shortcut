@@ -9,9 +9,12 @@ namespace SearchShortcut
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.IO;
     using System.Linq;
     using System.Windows.Forms;
+    using System.Xml.Serialization;
     using Microsoft.VisualBasic;
+    using PublicDomain;
 
     /// <summary>
     /// Description of MainForm.
@@ -421,6 +424,24 @@ namespace SearchShortcut
                     checkedListBox.Items.Clear();
 
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Loads the settings file.
+        /// </summary>
+        /// <returns>The settings file.</returns>
+        /// <param name="settingsFilePath">Settings file path.</param>
+        private SettingsData LoadSettingsFile(string settingsFilePath)
+        {
+            // Use file stream
+            using (FileStream fileStream = File.OpenRead(settingsFilePath))
+            {
+                // Set xml serialzer
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsData));
+
+                // Return populated settings data
+                return xmlSerializer.Deserialize(fileStream) as SettingsData;
             }
         }
 
