@@ -226,6 +226,26 @@ namespace SearchShortcut
         }
 
         /// <summary>
+        /// Handles the target browser tool strip menu item drop down item clicked.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnTargetBrowserToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // Set tool strip menu item
+            ToolStripMenuItem toolStripMenuItem = (ToolStripMenuItem)e.ClickedItem;
+
+            // Uncheck all
+            foreach (ToolStripMenuItem dropDownItem in this.targetBrowserToolStripMenuItem.DropDownItems)
+            {
+                dropDownItem.Checked = false;
+            }
+
+            // Check clicked menu item
+            toolStripMenuItem.Checked = true;
+        }
+
+        /// <summary>
         /// Handles the free releases public domainis tool strip menu item click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
