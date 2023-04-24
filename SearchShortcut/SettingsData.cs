@@ -48,9 +48,21 @@ namespace PublicDomain
         public List<string> SearchEnginesList { get; set; } = new List<string>();
 
         /// <summary>
+        /// Gets or sets the checked search terms list.
+        /// </summary>
+        /// <value>The checked search terms list.</value>
+        public List<string> CheckedSearchTermsList { get; set; } = new List<string>();
+
+        /// <summary>
+        /// Gets or sets the checked search engines list.
+        /// </summary>
+        /// <value>The checked search engines list.</value>
+        public List<string> CheckedSearchEnginesList { get; set; } = new List<string>();
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> always on top.
         /// </summary>
         /// <value><c>true</c> if always on top; otherwise, <c>false</c>.</value>
-        public List<string> CheckedOptionsList { get; set; }
+        public List<string> CheckedOptionsList { get; set; } = new List<string>();
     }
 }

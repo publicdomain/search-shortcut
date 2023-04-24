@@ -65,6 +65,37 @@ namespace SearchShortcut
 
             // Load settings from disk
             this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
+
+            /* GUI */
+
+            // Add items to checked listboxes
+            this.searchTermsCheckedListBox.Items.AddRange(this.settingsData.SearchTermsList.ToArray());
+            this.searchEnginesCheckedListBox.Items.AddRange(this.settingsData.SearchEnginesList.ToArray());
+
+            // Check terms
+            for (int i = 0; i < this.searchTermsCheckedListBox.Items.Count; i++)
+            {
+                // Check if exists in checked search terms list
+                if (this.settingsData.CheckedSearchTermsList.Contains(this.searchTermsCheckedListBox.Items[i].ToString()))
+                {
+                    // Check
+                    this.searchTermsCheckedListBox.SetItemChecked(i, true);
+                }
+            }
+
+            // Check engines
+            for (int i = 0; i < this.searchEnginesCheckedListBox.Items.Count; i++)
+            {
+                // Check if exists in checked search engines list
+                if (this.settingsData.CheckedSearchEnginesList.Contains(this.searchEnginesCheckedListBox.Items[i].ToString()))
+                {
+                    // Check
+                    this.searchEnginesCheckedListBox.SetItemChecked(i, true);
+                }
+            }
+
+            // Keyword
+            this.keywordToolStripStatusLabel.Text = this.settingsData.Keyword;
         }
 
         /// <summary>
@@ -362,7 +393,7 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnMainFormLoad(object sender, EventArgs e)
         {
-
+            // TODO Add code
         }
 
         /// <summary>
@@ -411,21 +442,29 @@ namespace SearchShortcut
 
             // Clear afresh
             this.settingsData.SearchTermsList.Clear();
+            this.settingsData.CheckedSearchTermsList.Clear();
 
             // Check if must restore terms
             if (this.restoreTermsToolStripMenuItem.Checked)
             {
                 // Add items into settings data list 
                 this.settingsData.SearchTermsList.AddRange(this.searchTermsCheckedListBox.Items.Cast<string>());
+
+                // Add checked items into settings data list 
+                this.settingsData.CheckedSearchTermsList.AddRange(this.searchTermsCheckedListBox.CheckedItems.Cast<string>());
             }
 
             /* Search engines list */
 
             // Clear afresh
             this.settingsData.SearchEnginesList.Clear();
+            this.settingsData.CheckedSearchEnginesList.Clear();
 
             // Add items into settings data list 
             this.settingsData.SearchEnginesList.AddRange(this.searchEnginesCheckedListBox.Items.Cast<string>());
+
+            // Add checked items into settings data list 
+            this.settingsData.CheckedSearchEnginesList.AddRange(this.searchEnginesCheckedListBox.CheckedItems.Cast<string>());
 
             // Save settings data to disk
             this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
