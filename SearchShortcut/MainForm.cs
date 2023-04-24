@@ -248,7 +248,33 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Check there's something to save
+            if (this.searchEnginesCheckedListBox.Items.Count == 0)
+            {
+                // Inform user
+                MessageBox.Show($"Nothing to save.", "Empty list", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Halt flow
+                return;
+            }
+
+            // Empty file name
+            this.textFileSaveFileDialog.FileName = string.Empty;
+
+            // Open save file dialog
+            if (this.textFileSaveFileDialog.ShowDialog() == DialogResult.OK && this.textFileSaveFileDialog.FileName.Length > 0)
+            {
+                try
+                {
+                    // Save lines to disk
+                    File.WriteAllLines(this.textFileSaveFileDialog.FileName, this.searchEnginesCheckedListBox.Items.Cast<string>().ToArray());
+                }
+                catch (Exception exception)
+                {
+                    // Inform user
+                    MessageBox.Show($"Error when saving to \"{Path.GetFileName(this.textFileSaveFileDialog.FileName)}\":{Environment.NewLine}{exception.Message}", "Save file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         /// <summary>
