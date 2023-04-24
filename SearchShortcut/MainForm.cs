@@ -94,6 +94,10 @@ namespace SearchShortcut
                 }
             }
 
+            // Update checked count
+            this.termsToolStripStatusLabel.Text = this.searchTermsCheckedListBox.CheckedItems.Count.ToString();
+            this.enginesToolStripStatusLabel.Text = this.searchEnginesCheckedListBox.CheckedItems.Count.ToString();
+
             // Keyword
             this.keywordToolStripStatusLabel.Text = this.settingsData.Keyword;
         }
@@ -488,7 +492,7 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSearchEnginesCheckedListBoxItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // Update checked terms
+            // Update checked engines
             this.enginesToolStripStatusLabel.Text = $"{this.searchEnginesCheckedListBox.CheckedItems.Count + (e.NewValue == CheckState.Checked ? 1 : -1)}";
         }
 
