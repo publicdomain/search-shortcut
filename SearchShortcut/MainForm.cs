@@ -397,7 +397,8 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnMainFormLoad(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Set topmost by settings data
+            this.TopMost = this.settingsData.CheckedOptionsList.Contains("alwaysOnTopToolStripMenuItem");
         }
 
         /// <summary>
@@ -534,7 +535,6 @@ namespace SearchShortcut
                                 // Test for a well-formed URI-
                                 if (!Uri.IsWellFormedUriString(itemText, UriKind.Absolute))
                                 {
-                                    // Halt flow
                                     break;
                                 }
                             }
