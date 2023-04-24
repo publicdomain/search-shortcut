@@ -24,6 +24,24 @@ namespace PublicDomain
         }
 
         /// <summary>
+        /// Gets or sets the keyword.
+        /// </summary>
+        /// <value>The keyword.</value>
+        public string Keyword { get; set; } = "publicdomain";
+
+        /// <summary>
+        /// Gets or sets the checked target browser.
+        /// </summary>
+        /// <value>The checked target browser.</value>
+        public string CheckedTargetBrowser { get; set; }
+
+        /// <summary>
+        /// Gets or sets the search terms list.
+        /// </summary>
+        /// <value>The search terms list.</value>
+        public List<string> SearchTermsList { get; set; } = new List<string>();
+
+        /// <summary>
         /// Gets or sets the search engines list.
         /// </summary>
         /// <value>The search engines list.</value>

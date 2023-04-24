@@ -11,6 +11,7 @@ namespace SearchShortcut
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows.Forms;
     using System.Xml.Serialization;
     using Microsoft.VisualBasic;
@@ -22,12 +23,48 @@ namespace SearchShortcut
     public partial class MainForm : Form
     {
         /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
+
+        /// <summary>
+        /// The settings data.
+        /// </summary>
+        private SettingsData settingsData = null;
+
+        /// <summary>
+        /// The settings data path.
+        /// </summary>
+        private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:SearchShortcut.MainForm"/> class.
         /// </summary>
         public MainForm()
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Set icons */
+
+            // Set associated icon from exe file
+            this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+
+            // Set PublicDomain.is tool strip menu item image
+            this.freeReleasesPublicDomainisToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+
+            /* Settings data */
+
+            // Check for settings file
+            if (!File.Exists(this.settingsDataPath))
+            {
+                // Create new settings file
+                this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
+            }
+
+            // Load settings from disk
+            this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
         }
 
         /// <summary>
@@ -265,7 +302,7 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnOriginalThreadDonationCodercomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code 
+            // TODO Add code
         }
 
         /// <summary>
@@ -325,7 +362,7 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnMainFormLoad(object sender, EventArgs e)
         {
-            // TODO Add code
+
         }
 
         /// <summary>
@@ -335,7 +372,63 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            // TODO Add code 
+            /* Checked options */
+
+            // New checked options list
+            List<string> checkedOptionsList = new List<string>();
+
+            // Set checked options list
+            foreach (ToolStripMenuItem toolStripMenuItem in this.optionsToolStripMenuItem.DropDownItems)
+            {
+                // Check if checked
+                if (toolStripMenuItem.Checked)
+                {
+                    // Add to checked options list
+                    checkedOptionsList.Add(toolStripMenuItem.Name);
+                }
+            }
+
+            // Set into settings data
+            this.settingsData.CheckedOptionsList = checkedOptionsList;
+
+            /* Checked target browser */
+
+            // Set checked target browser
+            foreach (ToolStripMenuItem toolStripMenuItem in this.targetBrowserToolStripMenuItem.DropDownItems)
+            {
+                // Check if checked
+                if (toolStripMenuItem.Checked)
+                {
+                    // Set into settings data
+                    this.settingsData.CheckedTargetBrowser = toolStripMenuItem.Name;
+
+                    // Halt flow
+                    break;
+                }
+            }
+
+            /* Search terms list */
+
+            // Clear afresh
+            this.settingsData.SearchTermsList.Clear();
+
+            // Check if must restore terms
+            if (this.restoreTermsToolStripMenuItem.Checked)
+            {
+                // Add items into settings data list 
+                this.settingsData.SearchTermsList.AddRange(this.searchTermsCheckedListBox.Items.Cast<string>());
+            }
+
+            /* Search engines list */
+
+            // Clear afresh
+            this.settingsData.SearchEnginesList.Clear();
+
+            // Add items into settings data list 
+            this.settingsData.SearchEnginesList.AddRange(this.searchEnginesCheckedListBox.Items.Cast<string>());
+
+            // Save settings data to disk
+            this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
         }
 
         /// <summary>
