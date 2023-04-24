@@ -56,50 +56,28 @@ namespace SearchShortcut
 
             /* Settings data */
 
+            // HACK Flag for options
+            bool setDefaultOptions = false;
+
             // Check for settings file
             if (!File.Exists(this.settingsDataPath))
             {
                 // Create new settings file
                 this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
+
+                // Toggle flag
+                setDefaultOptions = true;
             }
 
             // Load settings from disk
             this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
 
-            /* GUI */
-
-            // Add items to checked listboxes
-            this.searchTermsCheckedListBox.Items.AddRange(this.settingsData.SearchTermsList.ToArray());
-            this.searchEnginesCheckedListBox.Items.AddRange(this.settingsData.SearchEnginesList.ToArray());
-
-            // Check terms
-            for (int i = 0; i < this.searchTermsCheckedListBox.Items.Count; i++)
+            // Check if must set default options
+            if (setDefaultOptions)
             {
-                // Check if exists in checked search terms list
-                if (this.settingsData.CheckedSearchTermsList.Contains(this.searchTermsCheckedListBox.Items[i].ToString()))
-                {
-                    // Check
-                    this.searchTermsCheckedListBox.SetItemChecked(i, true);
-                }
+                // Set default options
+                this.settingsData.CheckedOptionsList = new List<string>() { "askOnClearToolStripMenuItem", "checkOnAddToolStripMenuItem", "checkOnClickToolStripMenuItem", "restoreTermsToolStripMenuItem" };
             }
-
-            // Check engines
-            for (int i = 0; i < this.searchEnginesCheckedListBox.Items.Count; i++)
-            {
-                // Check if exists in checked search engines list
-                if (this.settingsData.CheckedSearchEnginesList.Contains(this.searchEnginesCheckedListBox.Items[i].ToString()))
-                {
-                    // Check
-                    this.searchEnginesCheckedListBox.SetItemChecked(i, true);
-                }
-            }
-
-            // Update checked count
-            this.termsToolStripStatusLabel.Text = this.searchTermsCheckedListBox.CheckedItems.Count.ToString();
-            this.enginesToolStripStatusLabel.Text = this.searchEnginesCheckedListBox.CheckedItems.Count.ToString();
-
-            // Keyword
-            this.keywordToolStripStatusLabel.Text = this.settingsData.Keyword;
         }
 
         /// <summary>
@@ -280,7 +258,18 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnSetNewKeywordToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Collect item text from user
+            string newKeyword = Interaction.InputBox("Set new keyword", "Edit", this.settingsData.Keyword);
+
+            // Check it's not empty and different 
+            if (newKeyword.Length > 0 && newKeyword != this.settingsData.Keyword)
+            {
+                // Set into settings data
+                this.settingsData.Keyword = newKeyword;
+
+                // Update display
+                this.keywordToolStripStatusLabel.Text = newKeyword;
+            }
         }
 
         /// <summary>
@@ -397,6 +386,62 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnMainFormLoad(object sender, EventArgs e)
         {
+            /* GUI */
+
+            // Add items to checked listboxes
+            this.searchTermsCheckedListBox.Items.AddRange(this.settingsData.SearchTermsList.ToArray());
+            this.searchEnginesCheckedListBox.Items.AddRange(this.settingsData.SearchEnginesList.ToArray());
+
+            // Check terms
+            for (int i = 0; i < this.searchTermsCheckedListBox.Items.Count; i++)
+            {
+                // Check if exists in checked search terms list
+                if (this.settingsData.CheckedSearchTermsList.Contains(this.searchTermsCheckedListBox.Items[i].ToString()))
+                {
+                    // Check
+                    this.searchTermsCheckedListBox.SetItemChecked(i, true);
+                }
+            }
+
+            // Check engines
+            for (int i = 0; i < this.searchEnginesCheckedListBox.Items.Count; i++)
+            {
+                // Check if exists in checked search engines list
+                if (this.settingsData.CheckedSearchEnginesList.Contains(this.searchEnginesCheckedListBox.Items[i].ToString()))
+                {
+                    // Check
+                    this.searchEnginesCheckedListBox.SetItemChecked(i, true);
+                }
+            }
+
+            // Update checked count
+            this.termsToolStripStatusLabel.Text = this.searchTermsCheckedListBox.CheckedItems.Count.ToString();
+            this.enginesToolStripStatusLabel.Text = this.searchEnginesCheckedListBox.CheckedItems.Count.ToString();
+
+            // Check options
+            foreach (ToolStripMenuItem toolStripMenuItem in this.optionsToolStripMenuItem.DropDownItems)
+            {
+                // Set checked state
+                toolStripMenuItem.Checked = this.settingsData.CheckedOptionsList.Contains(toolStripMenuItem.Name);
+            }
+
+            // Check target browser
+            foreach (ToolStripMenuItem toolStripMenuItem in this.targetBrowserToolStripMenuItem.DropDownItems)
+            {
+                // Check if it's contained  in checked options list
+                if (this.settingsData.CheckedTargetBrowser == toolStripMenuItem.Name)
+                {
+                    // Check it
+                    toolStripMenuItem.Checked = true;
+
+                    // Halt flow
+                    break;
+                }
+            }
+
+            // Keyword
+            this.keywordToolStripStatusLabel.Text = this.settingsData.Keyword;
+
             // Set topmost by settings data
             this.TopMost = this.settingsData.CheckedOptionsList.Contains("alwaysOnTopToolStripMenuItem");
         }
@@ -425,6 +470,7 @@ namespace SearchShortcut
             }
 
             // Set into settings data
+            this.settingsData.CheckedOptionsList.Clear();
             this.settingsData.CheckedOptionsList = checkedOptionsList;
 
             /* Checked target browser */
@@ -470,6 +516,8 @@ namespace SearchShortcut
 
             // Add checked items into settings data list 
             this.settingsData.CheckedSearchEnginesList.AddRange(this.searchEnginesCheckedListBox.CheckedItems.Cast<string>());
+
+            /* Save to disk */
 
             // Save settings data to disk
             this.SaveSettingsFile(this.settingsDataPath, this.settingsData);

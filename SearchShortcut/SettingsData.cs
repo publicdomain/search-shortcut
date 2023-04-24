@@ -33,7 +33,7 @@ namespace PublicDomain
         /// Gets or sets the checked target browser.
         /// </summary>
         /// <value>The checked target browser.</value>
-        public string CheckedTargetBrowser { get; set; }
+        public string CheckedTargetBrowser { get; set; } = "chromeToolStripMenuItem";
 
         /// <summary>
         /// Gets or sets the search terms list.
@@ -63,6 +63,6 @@ namespace PublicDomain
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> always on top.
         /// </summary>
         /// <value><c>true</c> if always on top; otherwise, <c>false</c>.</value>
-        public List<string> CheckedOptionsList { get; set; } = new List<string>();
+        public List<string> CheckedOptionsList { get; set; }
     }
 }
