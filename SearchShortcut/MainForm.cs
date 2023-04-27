@@ -238,7 +238,50 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnOpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Reset file name
+            this.textFileOpenFileDialog.FileName = string.Empty;
+
+            // Show open file dialog
+            if (this.textFileOpenFileDialog.ShowDialog() == DialogResult.OK && this.textFileOpenFileDialog.FileNames.Length > 0)
+            {
+                // Prevent painting
+                this.searchEnginesCheckedListBox.BeginUpdate();
+
+                // Iterate text files
+                foreach (var textFilePath in this.textFileOpenFileDialog.FileNames)
+                {
+                    // Iterate lines
+                    foreach (var possibleSearchEngine in File.ReadAllLines(textFilePath))
+                    {
+                        // First check it's well formed
+                        if (!Uri.IsWellFormedUriString(possibleSearchEngine, UriKind.Absolute))
+                        {
+                            // Skip engine
+                            continue;
+                        }
+
+                        // Check for a previous one
+                        if (!this.searchEnginesCheckedListBox.Items.Contains(possibleSearchEngine))
+                        {
+                            // Add to checked list
+                            this.searchEnginesCheckedListBox.Items.Add(possibleSearchEngine);
+                        }
+
+                        // Should it be checked on add
+                        if (this.checkOnAddToolStripMenuItem.Checked)
+                        {
+                            // Check item (current or previous)
+                            this.searchEnginesCheckedListBox.SetItemChecked(this.searchEnginesCheckedListBox.Items.IndexOf(possibleSearchEngine), true);
+                        }
+                    }
+                }
+
+                // Resume painting
+                this.searchEnginesCheckedListBox.EndUpdate();
+
+                // Focus text box
+                this.searchEnginesTextBox.Focus();
+            }
         }
 
         /// <summary>
