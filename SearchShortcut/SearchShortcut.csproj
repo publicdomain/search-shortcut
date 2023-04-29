@@ -47,6 +47,7 @@
     <Reference Include="System.Xml.Linq">
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs" />

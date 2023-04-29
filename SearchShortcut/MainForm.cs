@@ -13,6 +13,7 @@ namespace SearchShortcut
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Web;
     using System.Windows.Forms;
     using System.Xml.Serialization;
     using Microsoft.VisualBasic;
@@ -171,7 +172,61 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnPerformSearchButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            /* Check there are both terms & engines to perform a search */
+
+            // Check for terms
+            if (this.searchTermsCheckedListBox.CheckedItems.Count == 0)
+            {
+                // Advise user
+                MessageBox.Show("No search term(s) to search.", "Missing term(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Halt flow
+                return;
+            }
+
+            // Check for engines
+            if (this.searchEnginesCheckedListBox.CheckedItems.Count == 0)
+            {
+                // Advise user
+                MessageBox.Show("No engine(s) to search with.", "Missing engine(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Halt flow
+                return;
+            }
+
+            /* Perform search */
+
+            // Iterate terms
+            foreach (var searchTerm in this.searchTermsCheckedListBox.CheckedItems)
+            {
+                // Iterate checked engines
+                foreach (var searchEngine in this.searchEnginesCheckedListBox.CheckedItems)
+                {
+                    // Replace keyword
+                    string searchEngineUrl = searchEngine.ToString().Replace(this.settingsData.Keyword, HttpUtility.UrlEncode(searchTerm.ToString()));
+
+                    // Check if must launch in chrome
+                    if (this.chromeToolStripMenuItem.Checked)
+                    {
+                        try
+                        {
+                            // Launch in chrome
+                            Process.Start("chrome", searchEngineUrl);
+
+                            // Halt flow
+                            continue;
+                        }
+                        catch
+                        {
+                            // Let it flow through
+                            ;
+                        }
+                    }
+
+                    // Launch in default browser
+                    Process.Start(searchEngineUrl);
+                }
+            }
         }
 
         /// <summary>
