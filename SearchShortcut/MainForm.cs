@@ -617,6 +617,9 @@ namespace SearchShortcut
 
             // Set topmost by settings data
             this.TopMost = this.settingsData.CheckedOptionsList.Contains("alwaysOnTopToolStripMenuItem");
+
+            // Set search terms mode
+            this.SearchTermsModeToolStripComboBox.SelectedIndex = this.SearchTermsModeToolStripComboBox.Items.IndexOf(this.settingsData.SearchTermsMode);
         }
 
         /// <summary>
@@ -826,6 +829,43 @@ namespace SearchShortcut
                 // Advise user
                 MessageBox.Show($"Error saving settings file.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{exception.Message}", "File error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Handles the search terms mode tool strip combo box selected index changed.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnSearchTermsModeToolStripComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Update add button text
+            switch (this.SearchTermsModeToolStripComboBox.SelectedItem.ToString())
+            {
+                // Add
+                case "Add terms":
+
+                    // Update button text
+                    this.searchTermAddButton.Text = "&Add";
+
+                    break;
+
+                case "Add and search":
+
+                    // Update button text
+                    this.searchTermAddButton.Text = "&A+S";
+
+                    break;
+
+                case "Direct search":
+
+                    // Update button text
+                    this.searchTermAddButton.Text = "&Srch";
+
+                    break;
+            }
+
+            // Update settings data
+            this.settingsData.SearchTermsMode = this.SearchTermsModeToolStripComboBox.SelectedItem.ToString();
         }
 
         /// <summary>

@@ -36,6 +36,12 @@ namespace PublicDomain
         public string CheckedTargetBrowser { get; set; } = "chromeToolStripMenuItem";
 
         /// <summary>
+        /// Gets or sets the search terms mode.
+        /// </summary>
+        /// <value>The search terms mode.</value>
+        public string SearchTermsMode { get; set; } = "Add terms";
+
+        /// <summary>
         /// Gets or sets the search terms list.
         /// </summary>
         /// <value>The search terms list.</value>
