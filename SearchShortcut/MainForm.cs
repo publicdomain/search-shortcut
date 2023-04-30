@@ -92,9 +92,68 @@ namespace SearchShortcut
             // Prevent painting
             this.searchTermsCheckedListBox.BeginUpdate();
 
-            // Split by comma adnd trim
-            foreach (var term in this.searchTermTextBox.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray())
+            // Declare terms list
+            List<string> termsList = new List<string>();
+
+            // Update add button text
+            switch (this.SearchTermsModeToolStripComboBox.SelectedItem.ToString())
             {
+                // Add
+                case "Add terms":
+
+                    // Add the terms
+                    this.AddTerms();
+
+                    break;
+
+                case "Add and search":
+                    // Set terms list
+                    termsList = this.AddTerms();
+
+                    // Perform search
+                    this.PerformSearch(termsList, false);
+
+                    break;
+
+                case "Direct search":
+
+                    // Split by comma adnd trim
+                    foreach (string term in this.searchTermTextBox.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray())
+                    {
+                        // Add term to list
+                        termsList.Add(term);
+                    }
+
+                    // Perform search
+                    this.PerformSearch(termsList, false);
+
+                    break;
+            }
+
+            // Resume painting
+            this.searchTermsCheckedListBox.EndUpdate();
+
+            // Clear text box
+            this.searchTermTextBox.Clear();
+
+            // Focus text box
+            this.searchTermTextBox.Focus();
+        }
+
+        /// <summary>
+        /// Adds the terms.
+        /// </summary>
+        private List<string> AddTerms()
+        {
+            // Terms list
+            List<string> termsList = new List<string>();
+
+            // Split by comma adnd trim
+            foreach (string term in this.searchTermTextBox.Text.Split(',').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray())
+            {
+                // Add term to list
+                termsList.Add(term);
+
                 // Check for a previous one
                 if (!this.searchTermsCheckedListBox.Items.Contains(term))
                 {
@@ -110,14 +169,8 @@ namespace SearchShortcut
                 }
             }
 
-            // Resume painting
-            this.searchTermsCheckedListBox.EndUpdate();
-
-            // Clear text box
-            this.searchTermTextBox.Clear();
-
-            // Focus text box
-            this.searchTermTextBox.Focus();
+            // Return terms list
+            return termsList;
         }
 
         /// <summary>
@@ -172,10 +225,32 @@ namespace SearchShortcut
         /// <param name="e">Event arguments.</param>
         private void OnPerformSearchButtonClick(object sender, EventArgs e)
         {
+            // Perform search
+            this.PerformSearch(new List<string>(), true);
+        }
+
+        /// <summary>
+        /// Performs the search.
+        /// </summary>
+        /// <param name="termsList">Terms list.</param>
+        /// <param name="addChecked">If set to <c>true</c> add checked.</param>
+        private void PerformSearch(List<string> termsList, bool addChecked)
+        {
+            // Check flag
+            if (addChecked)
+            {
+                // Iterate checked terms
+                foreach (var searchTerm in this.searchTermsCheckedListBox.CheckedItems)
+                {
+                    // Add to terms list
+                    termsList.Add(searchTerm.ToString());
+                }
+            }
+
             /* Check there are both terms & engines to perform a search */
 
             // Check for terms
-            if (this.searchTermsCheckedListBox.CheckedItems.Count == 0)
+            if (termsList.Count == 0)
             {
                 // Advise user
                 MessageBox.Show("No search term(s) to search.", "Missing term(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -194,16 +269,14 @@ namespace SearchShortcut
                 return;
             }
 
-            /* Perform search */
-
-            // Iterate terms
-            foreach (var searchTerm in this.searchTermsCheckedListBox.CheckedItems)
+            // Iterate search terms
+            foreach (string searchTerm in termsList)
             {
                 // Iterate checked engines
                 foreach (var searchEngine in this.searchEnginesCheckedListBox.CheckedItems)
                 {
                     // Replace keyword
-                    string searchEngineUrl = searchEngine.ToString().Replace(this.settingsData.Keyword, HttpUtility.UrlEncode(searchTerm.ToString()));
+                    string searchEngineUrl = searchEngine.ToString().Replace(this.settingsData.Keyword, HttpUtility.UrlEncode(searchTerm));
 
                     // Check if must launch in chrome
                     if (this.chromeToolStripMenuItem.Checked)
