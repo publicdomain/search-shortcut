@@ -48,6 +48,11 @@ namespace SearchShortcut
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
 
+            /* Title bar */
+
+            // Set title by exe file name
+            this.Text = Path.GetFileNameWithoutExtension(Application.ExecutablePath);
+
             /* Set icons */
 
             // Set associated icon from exe file
@@ -580,7 +585,7 @@ namespace SearchShortcut
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: luvnbeast{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #122, Week #18 @ May 02, 2023",
+                $"Made for: luvnbeast{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #129, Week #19 @ May 09, 2023",
                 licenseText,
                 this.Icon.ToBitmap())
             {
