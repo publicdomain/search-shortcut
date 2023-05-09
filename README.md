@@ -12,7 +12,7 @@ Source code: [SearchShortcut @ GitHub](https://github.com/publicdomain/search-sh
 
 Targets Microsoft .NET framework v4.5
 
-**v0.1.0 notes:** 
+v0.1.0:
 
 - Easy keyword replacement.
 - Right-click menu to delete, edit and clear items in lists.
