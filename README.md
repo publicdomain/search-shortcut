@@ -12,7 +12,11 @@ Source code: [SearchShortcut @ GitHub](https://github.com/publicdomain/search-sh
 
 Targets Microsoft .NET framework v4.5
 
-v0.1.0:
+**v0.2.0:**
+
+- Set title by exe file name.
+
+**v0.1.0:**
 
 - Easy keyword replacement.
 - Right-click menu to delete, edit and clear items in lists.
